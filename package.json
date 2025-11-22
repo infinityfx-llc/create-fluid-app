@@ -1,6 +1,6 @@
 {
 	"name": "create-fluid-app",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"type": "module",
 	"description": "Create a Next.JS with Fluid UI project with one command",
 	"repository": "infinityfx-llc/create-fluid-app",

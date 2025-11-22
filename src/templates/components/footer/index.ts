@@ -1,5 +1,5 @@
 export default function footerJsx(projectName: string) {
-    return `import styles from './footer.module.css';
+    return `import styles from './styles.module.css';
 
 export default function Footer() {
 

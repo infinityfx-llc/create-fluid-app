@@ -2,8 +2,9 @@ import { DBEngine } from "../lib/db";
 
 export default function prismaSchema(dbEngine: DBEngine) {
     return `generator client {
-    provider = "prisma-client"
-    output   = "./generated"
+    provider            = "prisma-client"
+    output              = "./generated"
+    importFileExtension = "ts"
 }
 
 datasource db {
@@ -11,8 +12,8 @@ datasource db {
 }
 
 model User {
-    id     String     @id
-    email  String     @unique
-    name   String
+    id    String @id
+    email String @unique
+    name  String
 }`;
 }

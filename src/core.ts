@@ -24,7 +24,7 @@ import revalidateJsx from "./templates/components/revalidate";
 import utilsLib from "./templates/lib/utils";
 
 export function showHelp() {
-    console.log(`create-fluid-app v0.0.2`);
+    console.log(`create-fluid-app v0.0.3`);
     console.log();
     console.log('Usage: npx create-fluid-app <options>');
     console.log();

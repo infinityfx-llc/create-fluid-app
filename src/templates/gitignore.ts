@@ -14,6 +14,7 @@ export default function gitIgnore() {
 # production
 /build
 fluid.css
+prisma/generated/
 
 # misc
 .DS_Store
