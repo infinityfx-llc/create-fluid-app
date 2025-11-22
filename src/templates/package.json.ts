@@ -32,7 +32,7 @@ export default function packageJson(name: string, dbEngine: DBEngine | null, opt
         "typescript": "^5.9.3"
     },
     "devDependencies": {
-        ${db ? '"@prisma/client": "^7.0.0",' : ''}
+        ${db ? '"prisma": "^7.0.0",' : ''}
         ${dbEngine === 'sqlite' ? '"@types/better-sqlite3": "^7.6.13",' : ''}
         ${dbEngine === 'postgresql' ? '"@types/pg": "^8.15.6",' : ''}
         "@types/node": "^24.10.1",

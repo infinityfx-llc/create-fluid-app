@@ -11,6 +11,16 @@ import dbLib, { DBEngine } from "./templates/lib/db";
 import packageJson from "./templates/package.json";
 import prismaSchema from "./templates/prisma/schema.prisma";
 import { CliOptions, promptUser, createFile, strToKebab } from "./utils";
+import loadingJsx from "./templates/app/loading";
+import footerJsx from "./templates/components/footer";
+import footerCss from "./templates/components/footer/styles.module.css";
+import headerJsx from "./templates/components/header";
+import headerCss from "./templates/components/header/styles.module.css";
+import navigationJsx from "./templates/components/header/navigation";
+import accountJsx from "./templates/components/header/account";
+import signInJsx from "./templates/app/sign-in/page";
+import signInCss from "./templates/app/sign-in/page.module.css";
+import revalidateJsx from "./templates/components/revalidate";
 
 export function showHelp() {
     console.log(`create-fluid-app v0.0.1`);
@@ -51,17 +61,20 @@ export async function createConfigurationFiles(options: CliOptions) {
     };
 }
 
-export async function createProjectStructure(config: ProjectConfig, options: CliOptions) {
+export function createProjectStructure(config: ProjectConfig, options: CliOptions) {
     const layout = layoutJsx(config, options);
     createFile('./app/layout.tsx', layout);
 
     const globals = globalCss();
     createFile('./app/globals.css', globals);
 
-    // favicon
+    const loading = loadingJsx();
+    createFile('./app/loading.tsx', loading);
 
     const page = pageJsx();
     createFile('./app/page.tsx', page);
+
+    // favicon
 
     if ((options.auth || options.database) && config.dbEngine) {
         const dbConfig = prismaConfig();
@@ -80,17 +93,52 @@ export async function createProjectStructure(config: ProjectConfig, options: Cli
 
         const route = authRoute();
         createFile('./app/authenticate/route.ts', route);
-    }
 
-    console.log();
+        const revalidate = revalidateJsx();
+        createFile('./components/revalidate.tsx', revalidate);
+    }
+}
+
+export function createShellApp(config: ProjectConfig, options: CliOptions) {
+    const header = headerJsx(options);
+    createFile('./components/header/index.tsx', header);
+    const headerStyles = headerCss();
+    createFile('./components/header/styles.module.css', headerStyles);
+    const navigation = navigationJsx();
+    createFile('./components/header/navigation.tsx', navigation);
+
+    const footer = footerJsx(config.name);
+    createFile('./components/footer/index.tsx', footer);
+    const footerStyles = footerCss();
+    createFile('./components/footer/styles.module.css', footerStyles);
+
+    if (options.auth) {
+        const account = accountJsx();
+        createFile('./components/header/account.tsx', account);
+
+        const signIn = signInJsx(config.domain);
+        createFile('./app/sign-in/page.tsx', signIn);
+        const signInStyles = signInCss();
+        createFile('./app/sign-in/page.module.css', signInStyles);
+    }
 }
 
 export function runSetupCommands() {
-    console.log('$ npm install');
+    console.log('$ npm install'); // detect npm/yarn/pnpm/bun
     spawnSync('npm install', {
         stdio: 'inherit',
         shell: true
     });
 
-    console.log();
+    console.log('$ npx prisma generate');
+    spawnSync('npx prisma generate', {
+        stdio: 'inherit',
+        shell: true
+    });
+
+    console.log('$ npx fluid compile -d');
+    spawnSync('npx fluid compile -d', {
+        stdio: 'inherit',
+        shell: true
+    });
 }

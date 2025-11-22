@@ -9,8 +9,10 @@ import { Inter } from "next/font/google";
 import { FluidProvider } from "@infinityfx/fluid";
 import { Splash } from "@infinityfx/splash";
 import type { Metadata } from "next";
-${options.auth ? `import Revalidate from "@/components/revalidate"
-import { Suspense } from "react";` : '#'};
+${options.auth ? `import Revalidate from "@/components/revalidate";
+import { Suspense } from "react";` : '#'}
+${options.shell ? `import Footer from "@/components/footer";
+import Header from "@/components/header";` : '#'}
 
 const interFont = Inter({
     subsets: ['latin'],
@@ -34,7 +36,11 @@ export default function RootLayout({ children }: {
         <FluidProvider>
             <body>
                 <Splash>
+                    ${options.shell ? '<Header />' : '#'}
+
                     {children}
+
+                    ${options.shell ? '<Footer />' : '#'}
 
                     ${options.auth ? `<Suspense>
                         <Revalidate />

@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-import { createConfigurationFiles, createProjectStructure, runSetupCommands, showHelp } from './core';
+import { createConfigurationFiles, createProjectStructure, createShellApp, runSetupCommands, showHelp } from './core';
 import { isFolderEmpty, parseOptions } from './utils';
 
 const options = parseOptions(process.argv.slice(2));
@@ -12,12 +12,15 @@ async function main() {
 
     if (!isFolderEmpty()) return console.log('Target directory is not empty');
 
+    const start = performance.now();
     const config = await createConfigurationFiles(options);
-    await createProjectStructure(config, options);
+    createProjectStructure(config, options);
 
-    if (options.shell) {}
+    if (options.shell) createShellApp(config, options);
 
     runSetupCommands();
+
+    console.log(`Created Fluid UI app in ${((performance.now() - start) / 1000).toFixed(2)}s`);
 }
 
 main();
