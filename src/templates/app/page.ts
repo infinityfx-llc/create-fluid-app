@@ -4,7 +4,7 @@ import { Button } from '@infinityfx/fluid';
 
 export default function Page() {
 
-    return <main className="main">
+    return <main className="page">
         <Link href="https://fluid.infinityfx.dev/docs/get-started" tabIndex={-1}>
             <Button>
                 Get started

@@ -12,6 +12,10 @@ export default function headerCss() {
     z-index: 100;
 }
 
+.account {
+    margin-left: auto;
+}
+
 @media (max-width: 768px) {
     .navigation {
         display: none !important;

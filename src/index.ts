@@ -18,7 +18,7 @@ async function main() {
 
     if (options.shell) createShellApp(config, options);
 
-    runSetupCommands();
+    runSetupCommands(options);
 
     console.log(`Created Fluid UI app in ${((performance.now() - start) / 1000).toFixed(2)}s`);
 }

@@ -24,7 +24,7 @@ import revalidateJsx from "./templates/components/revalidate";
 import utilsLib from "./templates/lib/utils";
 
 export function showHelp() {
-    console.log(`create-fluid-app v0.0.3`);
+    console.log(`create-fluid-app v0.0.4`);
     console.log();
     console.log('Usage: npx create-fluid-app <options>');
     console.log();
@@ -127,22 +127,18 @@ export function createShellApp(config: ProjectConfig, options: CliOptions) {
     }
 }
 
-export function runSetupCommands() {
+export function runSetupCommands(options: CliOptions) {
     console.log('$ npm install'); // detect npm/yarn/pnpm/bun
     spawnSync('npm install', {
         stdio: 'inherit',
         shell: true
     });
 
-    console.log('$ npx prisma generate');
-    spawnSync('npx prisma generate', {
-        stdio: 'inherit',
-        shell: true
-    });
-
-    console.log('$ npx fluid compile -d');
-    spawnSync('npx fluid compile -d', {
-        stdio: 'inherit',
-        shell: true
-    });
+    if (options.auth || options.database) {
+        console.log('$ npx prisma generate');
+        spawnSync('npx prisma generate', {
+            stdio: 'inherit',
+            shell: true
+        });
+    }
 }
