@@ -21,14 +21,15 @@ import accountJsx from "./templates/components/header/account";
 import signInJsx from "./templates/app/sign-in/page";
 import signInCss from "./templates/app/sign-in/page.module.css";
 import revalidateJsx from "./templates/components/revalidate";
+import utilsLib from "./templates/lib/utils";
 
 export function showHelp() {
-    console.log(`create-fluid-app v0.0.1`);
+    console.log(`create-fluid-app v0.0.2`);
     console.log();
     console.log('Usage: npx create-fluid-app <options>');
     console.log();
 
-    // todo
+    // show options
 }
 
 export type ProjectConfig = {
@@ -93,6 +94,9 @@ export function createProjectStructure(config: ProjectConfig, options: CliOption
 
         const route = authRoute();
         createFile('./app/authenticate/route.ts', route);
+
+        const utils = utilsLib();
+        createFile('./lib/utils.ts', utils);
 
         const revalidate = revalidateJsx();
         createFile('./components/revalidate.tsx', revalidate);

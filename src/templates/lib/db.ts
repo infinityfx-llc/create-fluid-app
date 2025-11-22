@@ -1,8 +1,8 @@
 export type DBEngine = 'postgresql' | 'mysql' | 'sqlite';
 
 export const dbAdapters = {
-    postgresql: ['PrismaPG', 'adapter-pg'],
-    mysql: ['PrismaMariaDB', 'adapter-mariadb'],
+    postgresql: ['PrismaPg', 'adapter-pg'],
+    mysql: ['PrismaMariaDb', 'adapter-mariadb'],
     sqlite: ['PrismaBetterSqlite3', 'adapter-better-sqlite3']
 };
 
@@ -29,7 +29,7 @@ const adapter = new ${name}({
     user,
     password,
     database,
-    port,
+    port: parseInt(port),
     connectionLimit: 5` : '#'}
 });
 
