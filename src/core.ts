@@ -22,14 +22,18 @@ import signInJsx from "./templates/app/sign-in/page";
 import signInCss from "./templates/app/sign-in/page.module.css";
 import revalidateJsx from "./templates/components/revalidate";
 import utilsLib from "./templates/lib/utils";
+import readme from "./templates/readme";
 
 export function showHelp() {
-    console.log(`create-fluid-app v0.0.4`);
+    console.log(`create-fluid-app v0.1.0`);
     console.log();
     console.log('Usage: npx create-fluid-app <options>');
     console.log();
-
-    // show options
+    console.log('Options:');
+    console.log('--database, -db        Setup a mysql/postgresql/sqlite database');
+    console.log('--auth, -a:            Setup user authentication with nano-auth');
+    console.log('--shell, -sh:          Create header and footer template UI\'s');
+    console.log();
 }
 
 export type ProjectConfig = {
@@ -46,6 +50,7 @@ export async function createConfigurationFiles(options: CliOptions) {
     const pckg = packageJson(strToKebab(name), dbEngine, options);
     createFile('./package.json', pckg);
 
+    createFile('./README.md', readme());
     createFile('./.gitignore', gitIgnore());
     createFile('./tsconfig.json', tsConfig());
     createFile('./next.config.js', nextConfig());
